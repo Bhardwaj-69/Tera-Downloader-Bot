@@ -192,9 +192,9 @@ def has_valid_token(user_id):
 
 @app.on_message(filters.command("start"))
 async def start_command(client: Client, message: Message):
-    join_button = InlineKeyboardButton("ᴊᴏɪɴ ❤️🚀", url="https://t.me/LarvaLinks")
-    developer_button = InlineKeyboardButton("ᴅᴇᴠᴇʟᴏᴘᴇʀ ⚡️", url="https://t.me/BhardwajBhavit")
-    repo69 = InlineKeyboardButton("ʀᴇᴘᴏ 🌐", url="https://t.me/BhardwajBhavit")
+    join_button = InlineKeyboardButton("Join🎃", url="https://t.me/LarvaLinks")
+    developer_button = InlineKeyboardButton("DeveLoper ⚡🏴‍☠️", url="https://t.me/BhardwajBhavit")
+    repo69 = InlineKeyboardButton("Repo💀", url="https://t.me/BhardwajBhavit")
     reply_markup = InlineKeyboardMarkup([[join_button, developer_button], [repo69]])
     final_msg = "🏴‍☠️💀Ahhoyy! Pirate.\n\n🏝Send TeraBox Video Link ⚡\n\nYou already have a valid token!"
     video_file_id = "/app/Jet-Mirror.mp4"
@@ -273,9 +273,9 @@ async def handle_message(client: Client, message: Message):
     is_member = await is_user_member(client, user_id)
 
     if not is_member:
-        join_button = InlineKeyboardButton("JOIN⚓", url="https://t.me/LarvaLinks")
+        join_button = InlineKeyboardButton("JOIN⚓", url="https://t.me/+0qXyse_1_GA3Mjc1")
         reply_markup = InlineKeyboardMarkup([[join_button]])
-        await message.reply_text("🌻Just Join🔆", reply_markup=reply_markup)
+        await message.reply_text("🌻Just Join🔆\n\n 🤞Just Join the Channel♻\n\n ❄to Download Unlimited Video from TeraBox🌻", reply_markup=reply_markup)
         return
 
     if not has_valid_token(user_id):
