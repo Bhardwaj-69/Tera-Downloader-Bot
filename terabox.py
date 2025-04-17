@@ -192,11 +192,11 @@ def has_valid_token(user_id):
 
 @app.on_message(filters.command("start"))
 async def start_command(client: Client, message: Message):
-    join_button = InlineKeyboardButton("ᴊᴏɪɴ ❤️🚀", url="https://t.me/jetmirror")
-    developer_button = InlineKeyboardButton("ᴅᴇᴠᴇʟᴏᴘᴇʀ ⚡️", url="https://t.me/rtx5069")
-    repo69 = InlineKeyboardButton("ʀᴇᴘᴏ 🌐", url="https://github.com/Hrishi2861/Terabox-Downloader-Bot")
+    join_button = InlineKeyboardButton("ᴊᴏɪɴ ❤️🚀", url="https://t.me/LarvaLinks")
+    developer_button = InlineKeyboardButton("ᴅᴇᴠᴇʟᴏᴘᴇʀ ⚡️", url="https://t.me/BhardwajBhavit")
+    repo69 = InlineKeyboardButton("ʀᴇᴘᴏ 🌐", url="https://t.me/BhardwajBhavit")
     reply_markup = InlineKeyboardMarkup([[join_button, developer_button], [repo69]])
-    final_msg = "🌟 ɪ ᴀᴍ ᴀ ᴛᴇʀᴀʙᴏx ᴅᴏᴡɴʟᴏᴀᴅᴇʀ ʙᴏᴛ.\n\nYou already have a valid token!"
+    final_msg = "🏴‍☠️💀Ahhoyy! Pirate.\n\n🏝Send TeraBox Video Link ⚡\n\nYou already have a valid token!"
     video_file_id = "/app/Jet-Mirror.mp4"
     if len(message.command) > 1 and len(message.command[1]) == 36:
         token = message.command[1]
@@ -207,26 +207,26 @@ async def start_command(client: Client, message: Message):
                 await client.send_video(
                     chat_id=message.chat.id,
                     video=video_file_id,
-                    caption="🌟 ɪ ᴀᴍ ᴀ ᴛᴇʀᴀʙᴏx ᴅᴏᴡɴʟᴏᴀᴅᴇʀ ʙᴏᴛ.\n\nYour token has been activated successfully! You can now use the bot.",
+                    caption="🏴‍☠️💀Ahhoyy! Pirate.\n\n🏝Send TeraBox Video Link ⚡\n\nYour token has been activated successfully! You can now use the bot.",
                     reply_markup=reply_markup
                     )
             else:
-                await message.reply_text("🌟 ɪ ᴀᴍ ᴀ ᴛᴇʀᴀʙᴏx ᴅᴏᴡɴʟᴏᴀᴅᴇʀ ʙᴏᴛ.\n\nYour token has been activated successfully! You can now use the bot.", reply_markup=reply_markup)
+                await message.reply_text("🏴‍☠️💀Ahhoyy! Pirate.\n\n🏝Send TeraBox Video Link ⚡\n\nYour token has been activated successfully! You can now use the bot.", reply_markup=reply_markup)
         else:
             if os.path.exists(video_file_id):
                 await client.send_video(
                     chat_id=message.chat.id,
                     video=video_file_id,
-                    caption="🌟 ɪ ᴀᴍ ᴀ ᴛᴇʀᴀʙᴏx ᴅᴏᴡɴʟᴏᴀᴅᴇʀ ʙᴏᴛ.\n\nInvalid token. Please generate a new one using /start.",
+                    caption="🏴‍☠️💀Ahhoyy! Pirate.\n\n🏝Send TeraBox Video Link ⚡.\n\nInvalid token. Please generate a new one using /start.",
                     reply_markup=reply_markup
                     )
             else:
-                await message.reply_text("🌟 ɪ ᴀᴍ ᴀ ᴛᴇʀᴀʙᴏx ᴅᴏᴡɴʟᴏᴀᴅᴇʀ ʙᴏᴛ.\n\nInvalid token. Please generate a new one using /start.", reply_markup=reply_markup)
+                await message.reply_text("🏴‍☠️💀Ahhoyy! Pirate.\n\n🏝Send TeraBox Video Link ⚡\n\nInvalid token. Please generate a new one using /start.", reply_markup=reply_markup)
     else:
         user_id = message.from_user.id
         if not has_valid_token(user_id):
             token = generate_uuid(user_id)
-            long_url = f"https://redirect.jet-mirror.in/{app.me.username}/{token}"
+            long_url = f"https://Google.com/{app.me.username}/{token}"
             short_url = shorten_url(long_url)
             if short_url:
                 reply_markup2 = InlineKeyboardMarkup([[InlineKeyboardButton("Generate Token Link", url=short_url)], [join_button, developer_button], [repo69]])
@@ -234,12 +234,12 @@ async def start_command(client: Client, message: Message):
                     await client.send_video(
                     chat_id=message.chat.id,
                     video=video_file_id,
-                    caption="🌟 ɪ ᴀᴍ ᴀ ᴛᴇʀᴀʙᴏx ᴅᴏᴡɴʟᴏᴀᴅᴇʀ ʙᴏᴛ.\n\nPlease generate your Token, which will be valid for 12Hrs.",
+                    caption="🏴‍☠️💀Ahhoyy! Pirate.\n\n🏝Send TeraBox Video Link ⚡\n\nPlease generate your FRREE Token, 💥⚡Just Click and No Need to Verify 💥💢\n\n💢⭕Direct Verify from Google Without any Shortener 👻.",
                     reply_markup=reply_markup2
                     )
                 else:
                     await message.reply_text(
-                    "🌟 ɪ ᴀᴍ ᴀ ᴛᴇʀᴀʙᴏx ᴅᴏᴡɴʟᴏᴀᴅᴇʀ ʙᴏᴛ.\n\n"
+                    "🏴‍☠️💀Ahhoyy! Pirate.\n\n🏝Send TeraBox Video Link ⚡\n\n"
                     "Please generate your Token, which will be valid for 12Hrs.",
                     reply_markup=reply_markup2
                 )
@@ -273,9 +273,9 @@ async def handle_message(client: Client, message: Message):
     is_member = await is_user_member(client, user_id)
 
     if not is_member:
-        join_button = InlineKeyboardButton("ᴊᴏɪɴ ❤️🚀", url="https://t.me/jetmirror")
+        join_button = InlineKeyboardButton("JOIN⚓", url="https://t.me/LarvaLinks")
         reply_markup = InlineKeyboardMarkup([[join_button]])
-        await message.reply_text("ʏᴏᴜ ᴍᴜsᴛ ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴍᴇ.", reply_markup=reply_markup)
+        await message.reply_text("🌻Just Join🔆", reply_markup=reply_markup)
         return
 
     if not has_valid_token(user_id):
@@ -299,7 +299,7 @@ async def handle_message(client: Client, message: Message):
     final_url = f"https://teradlrobot.cheemsbackup.workers.dev/?url={encoded_url}"
 
     download = aria2.add_uris([final_url])
-    status_message = await message.reply_text("sᴇɴᴅɪɴɢ ʏᴏᴜ ᴛʜᴇ ᴍᴇᴅɪᴀ...🤤")
+    status_message = await message.reply_text("💢Wait Pirate.\n\n 🏴‍☠️i am Sending your File.♻")
 
     start_time = datetime.now()
 
@@ -312,14 +312,14 @@ async def handle_message(client: Client, message: Message):
         elapsed_minutes, elapsed_seconds = divmod(elapsed_time.seconds, 60)
 
         status_text = (
-            f"┏ ғɪʟᴇɴᴀᴍᴇ: {download.name}\n"
+            f"┏ FileName🔆: {download.name}\n"
             f"┠ [{'★' * int(progress / 10)}{'☆' * (10 - int(progress / 10))}] {progress:.2f}%\n"
-            f"┠ ᴘʀᴏᴄᴇssᴇᴅ: {format_size(download.completed_length)} ᴏғ {format_size(download.total_length)}\n"
-            f"┠ sᴛᴀᴛᴜs: 📥 Downloading\n"
-            f"┠ ᴇɴɢɪɴᴇ: <b><u>Aria2c v1.37.0</u></b>\n"
-            f"┠ sᴘᴇᴇᴅ: {format_size(download.download_speed)}/s\n"
-            f"┠ ᴇᴛᴀ: {download.eta} | ᴇʟᴀᴘsᴇᴅ: {elapsed_minutes}m {elapsed_seconds}s\n"
-            f"┖ ᴜsᴇʀ: <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a> | ɪᴅ: {user_id}\n"
+            f"┠ Processed: {format_size(download.completed_length)} ᴏғ {format_size(download.total_length)}\n"
+            f"┠ Status🍁: ♠ Downloading\n"
+            f"┠ Engine: <b><u>Aria2c v1.37.0</u></b>\n"
+            f"┠ Speed.🚀: {format_size(download.download_speed)}/s\n"
+            f"┠ Time Remaining🤞: {download.eta} | ᴇʟᴀᴘsᴇᴅ: {elapsed_minutes}m {elapsed_seconds}s\n"
+            f"┖ User: <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a> | ID: {user_id}\n"
             )
         while True:
             try:
@@ -331,14 +331,14 @@ async def handle_message(client: Client, message: Message):
 
     file_path = download.files[0].path
     caption = (
-        f"✨ {download.name}\n"
-        f"👤 ʟᴇᴇᴄʜᴇᴅ ʙʏ : <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a>\n"
-        f"📥 ᴜsᴇʀ ʟɪɴᴋ: tg://user?id={user_id}\n\n"
-        "[ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴊᴇᴛ-ᴍɪʀʀᴏʀ ❤️🚀](https://t.me/JetMirror)"
+        f"💢⚡ {download.name}\n"
+        f"🎃⚓Leech By User : <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a>\n"
+        f"❄🌻User Link: tg://user?id={user_id}\n\n"
+        "[🎃⚓Powerd by LarvaLinks](https://t.me/LarvaLinks)"
     )
 
     last_update_time = time.time()
-    UPDATE_INTERVAL = 15
+    UPDATE_INTERVAL = 5
 
     async def update_status(message, text):
         nonlocal last_update_time
@@ -360,14 +360,14 @@ async def handle_message(client: Client, message: Message):
         elapsed_minutes, elapsed_seconds = divmod(elapsed_time.seconds, 60)
 
         status_text = (
-            f"┏ ғɪʟᴇɴᴀᴍᴇ: {download.name}\n"
+            f"┏ FileName🔆: {download.name}\n"
             f"┠ [{'★' * int(progress / 10)}{'☆' * (10 - int(progress / 10))}] {progress:.2f}%\n"
-            f"┠ ᴘʀᴏᴄᴇssᴇᴅ: {format_size(current)} ᴏғ {format_size(total)}\n"
-            f"┠ sᴛᴀᴛᴜs: 📤 Uploading to Telegram\n"
-            f"┠ ᴇɴɢɪɴᴇ: <b><u>PyroFork v2.2.11</u></b>\n"
-            f"┠ sᴘᴇᴇᴅ: {format_size(current / elapsed_time.seconds if elapsed_time.seconds > 0 else 0)}/s\n"
-            f"┠ ᴇʟᴀᴘsᴇᴅ: {elapsed_minutes}m {elapsed_seconds}s\n"
-            f"┖ ᴜsᴇʀ: <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a> | ɪᴅ: {user_id}\n"
+            f"┠ Processed: {format_size(current)} ᴏғ {format_size(total)}\n"
+            f"┠ Status: 🍁: 🚀 Uploading to Telegram\n"
+            f"┠ Engine: <b><u>PyroFork v2.2.11</u></b>\n"
+            f"┠ Speed🚀: {format_size(current / elapsed_time.seconds if elapsed_time.seconds > 0 else 0)}/s\n"
+            f"┠ Time Remaining🤞: {elapsed_minutes}m {elapsed_seconds}s\n"
+            f"┖ User: <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a> | ID: {user_id}\n"
         )
         await update_status(status_message, status_text)
 
@@ -445,7 +445,7 @@ async def handle_message(client: Client, message: Message):
                     part_caption = f"{caption}\n\nPart {i+1}/{len(split_files)}"
                     await update_status(
                         status_message,
-                        f"📤 Uploading part {i+1}/{len(split_files)}\n"
+                        f"🚀 Uploading part {i+1}/{len(split_files)}\n"
                         f"{os.path.basename(part)}"
                     )
                     
@@ -476,7 +476,7 @@ async def handle_message(client: Client, message: Message):
         else:
             await update_status(
                 status_message,
-                f"📤 Uploading {download.name}\n"
+                f"🚀 Uploading {download.name}\n"
                 f"Size: {format_size(file_size)}"
             )
             
