@@ -142,119 +142,28 @@ def format_size(size):
     else:
         return f"{size / (1024 * 1024 * 1024):.2f} GB"
 
-def shorten_url(url):
-    #You can change api_url with your choice shortener
-    api_url = "https://api.modijiurl.com/api"
-    params = {
-        "api": SHORTENER_API,
-        "url": url
-    }
-    try:
-        response = requests.get(api_url, params=params)
-        response.raise_for_status()
-        data = response.json()
-        if data.get("status") == "success":
-            return data.get("shortenedUrl")
-        elif SHORTENER_API is None:
-            return url
-        else:
-            logger.error(f"Failed to shorten URL: {data}")
-            return url
-    except Exception as e:
-        logger.error(f"Error shortening URL: {e}")
-        return url
-
-def generate_uuid(user_id):
-    token = str(uuid.uuid4())
-    collection.update_one(
-        {"user_id": user_id},
-        {"$set": {"token": token, "token_status": "inactive", "token_expiry": None}},
-        upsert=True
-    )
-    return token
-
-def activate_token(user_id, token):
-    user_data = collection.find_one({"user_id": user_id, "token": token})
-    if user_data:
-        collection.update_one(
-            {"user_id": user_id, "token": token},
-            {"$set": {"token_status": "active", "token_expiry": datetime.now() + timedelta(hours=12)}}
-        )
-        return True
-    return False
-
-def has_valid_token(user_id):
-    user_data = collection.find_one({"user_id": user_id})
-    if user_data and user_data.get("token_status") == "active":
-        if datetime.now() < user_data.get("token_expiry"):
-            return True
-    return False
-
 @app.on_message(filters.command("start"))
-async def start_command(client: Client, message: Message):
-    join_button = InlineKeyboardButton("Join🎃", url="https://t.me/LarvaLinks")
-    developer_button = InlineKeyboardButton("DeveLoper ⚡🏴‍☠️", url="https://t.me/BhardwajBhavit")
-    repo69 = InlineKeyboardButton("Repo💀", url="https://t.me/BhardwajBhavit")
-    reply_markup = InlineKeyboardMarkup([[join_button, developer_button], [repo69]])
-    final_msg = "🏴‍☠️💀Ahhoyy! Pirate.\n\n🏝Send TeraBox Video Link ⚡\n\nYou already have a valid token!"
+async def start_command(client, message):
+    sticker_message = await message.reply_sticker("CAACAgUAAxkBAAKTlmfudEZKYYjP4l6XJZ5QRYWu00c3AAKwDwAC7osxVhzQOn1XTmwNHgQ")
+    await asyncio.sleep(2)
+    await sticker_message.delete()
+    user_mention = message.from_user.mention
+    reply_message = f"💢Ahhoyy! Pirate💀🏴‍☠️, {user_mention}.\n\n🍁TeraBox Video Downloader Here.\n\n🎃Send me TeraBox Video Link.🔆."
+    join_button = InlineKeyboardButton("💢JOIN♻", url="https://t.me/LarvaLinks")
+    developer_button = InlineKeyboardButton("🍁DeveLoper🍁", url="https://t.me/BhardwajBhavit")
+    reply_markup = InlineKeyboardMarkup([[join_button, developer_button]])
     video_file_id = "/app/Jet-Mirror.mp4"
-    if len(message.command) > 1 and len(message.command[1]) == 36:
-        token = message.command[1]
-        user_id = message.from_user.id
-
-        if activate_token(user_id, token):
-            if os.path.exists(video_file_id):
-                await client.send_video(
-                    chat_id=message.chat.id,
-                    video=video_file_id,
-                    caption="🏴‍☠️💀Ahhoyy! Pirate.\n\n🏝Send TeraBox Video Link ⚡\n\nYour token has been activated successfully! You can now use the bot.",
-                    reply_markup=reply_markup
-                    )
-            else:
-                await message.reply_text("🏴‍☠️💀Ahhoyy! Pirate.\n\n🏝Send TeraBox Video Link ⚡\n\nYour token has been activated successfully! You can now use the bot.", reply_markup=reply_markup)
-        else:
-            if os.path.exists(video_file_id):
-                await client.send_video(
-                    chat_id=message.chat.id,
-                    video=video_file_id,
-                    caption="🏴‍☠️💀Ahhoyy! Pirate.\n\n🏝Send TeraBox Video Link ⚡.\n\nInvalid token. Please generate a new one using /start.",
-                    reply_markup=reply_markup
-                    )
-            else:
-                await message.reply_text("🏴‍☠️💀Ahhoyy! Pirate.\n\n🏝Send TeraBox Video Link ⚡\n\nInvalid token. Please generate a new one using /start.", reply_markup=reply_markup)
+    if os.path.exists(video_file_id):
+        await client.send_video(
+            chat_id=message.chat.id,
+            video=video_file_id,
+            caption=reply_message,
+            reply_markup=reply_markup
+        )
     else:
-        user_id = message.from_user.id
-        if not has_valid_token(user_id):
-            token = generate_uuid(user_id)
-            long_url = f"{app.me.username}/{token}"
-            short_url = shorten_url(long_url)
-            if short_url:
-                reply_markup2 = InlineKeyboardMarkup([[InlineKeyboardButton("Generate Token Link", url=short_url)], [join_button, developer_button], [repo69]])
-                if os.path.exists(video_file_id):
-                    await client.send_video(
-                    chat_id=message.chat.id,
-                    video=video_file_id,
-                    caption="🏴‍☠️💀Ahhoyy! Pirate.\n\n🏝Send TeraBox Video Link ⚡\n\nPlease generate your FRREE Token, 💥⚡Just Click and No Need to Verify 💥💢\n\n💢⭕Direct Verify from Google Without any Shortener 👻.",
-                    reply_markup=reply_markup2
-                    )
-                else:
-                    await message.reply_text(
-                    "🏴‍☠️💀Ahhoyy! Pirate.\n\n🏝Send TeraBox Video Link ⚡\n\n"
-                    "Please generate your Token, which will be valid for 12Hrs.",
-                    reply_markup=reply_markup2
-                )
-            else:
-                await message.reply_text("Failed to generate the final link. Please try again.")
-        else:
-            if os.path.exists(video_file_id):
-                await client.send_video(
-                    chat_id=message.chat.id,
-                    video=video_file_id,
-                    caption=final_msg,
-                    reply_markup=reply_markup
-                    )
-            else:
-                await message.reply_text(final_msg, reply_markup=reply_markup)
+        await message.reply_text(reply_message, reply_markup=reply_markup)
+
+
 
 async def update_status_message(status_message, text):
     try:
@@ -273,16 +182,9 @@ async def handle_message(client: Client, message: Message):
     is_member = await is_user_member(client, user_id)
 
     if not is_member:
-        join_button = InlineKeyboardButton("JOIN⚓", url="https://t.me/+0qXyse_1_GA3Mjc1")
+        join_button = InlineKeyboardButton("💢JOIN Now⭕", url="https://t.me/+0qXyse_1_GA3Mjc1")
         reply_markup = InlineKeyboardMarkup([[join_button]])
-        await message.reply_text("🌻Just Join🔆\n\n 🤞Just Join the Channel♻\n\n ❄to Download Unlimited Video from TeraBox🌻", reply_markup=reply_markup)
-        return
-
-    if not has_valid_token(user_id):
-        await message.reply_text(
-            "Your token has expired or you haven't generated one yet.\n"
-            "Please generate a new token using /start."
-        )
+        await message.reply_text("🌻Just Join the Channel♻\n\n🏝to Download Unlimited TeraBox Video\n\n ⚡FREE Without any Verification Shortnere💀", reply_markup=reply_markup)
         return
     
     url = None
@@ -299,7 +201,7 @@ async def handle_message(client: Client, message: Message):
     final_url = f"https://teradlrobot.cheemsbackup.workers.dev/?url={encoded_url}"
 
     download = aria2.add_uris([final_url])
-    status_message = await message.reply_text("💢Wait Pirate.\n\n 🏴‍☠️i am Sending your File.♻")
+    status_message = await message.reply_text("💢Wait Pirate\n♻Sending your Content🤞")
 
     start_time = datetime.now()
 
@@ -312,14 +214,14 @@ async def handle_message(client: Client, message: Message):
         elapsed_minutes, elapsed_seconds = divmod(elapsed_time.seconds, 60)
 
         status_text = (
-            f"┏ FileName🔆: {download.name}\n"
-            f"┠ [{'★' * int(progress / 10)}{'☆' * (10 - int(progress / 10))}] {progress:.2f}%\n"
-            f"┠ Processed: {format_size(download.completed_length)} ᴏғ {format_size(download.total_length)}\n"
-            f"┠ Status🍁: ♠ Downloading\n"
+            f"┏ FileName: {download.name}\n"
+            f"┠ [{'🔆' * int(progress / 10)}{'━' * (10 - int(progress / 10))}] {progress:.2f}%\n"
+            f"┠ ProceSsed: {format_size(download.completed_length)} ᴏғ {format_size(download.total_length)}\n"
+            f"┠ Status:  Downloading\n"
             f"┠ Engine: <b><u>Aria2c v1.37.0</u></b>\n"
-            f"┠ Speed.🚀: {format_size(download.download_speed)}/s\n"
-            f"┠ Time Remaining🤞: {download.eta} | ᴇʟᴀᴘsᴇᴅ: {elapsed_minutes}m {elapsed_seconds}s\n"
-            f"┖ User: <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a> | ID: {user_id}\n"
+            f"┠ Speed: {format_size(download.download_speed)}/s\n"
+            f"┠ Eta: {download.eta} | ᴇʟᴀᴘsᴇᴅ: {elapsed_minutes}m {elapsed_seconds}s\n"
+            f"┖ User: <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a> | ɪᴅ: {user_id}\n"
             )
         while True:
             try:
@@ -331,10 +233,10 @@ async def handle_message(client: Client, message: Message):
 
     file_path = download.files[0].path
     caption = (
-        f"💢⚡ {download.name}\n"
-        f"🎃⚓Leech By User : <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a>\n"
-        f"❄🌻User Link: tg://user?id={user_id}\n\n"
-        "[🎃⚓Powerd by LarvaLinks](https://t.me/LarvaLinks)"
+        f"🎃🏴‍☠️ {download.name}\n"
+        f"🍁♻ Leeched By : <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a>\n"
+        f"🏝⚡ UserLink: tg://user?id={user_id}\n\n"
+        "[Powered By LarvaLinks](https://t.me/LarvaLinks)"
     )
 
     last_update_time = time.time()
@@ -360,14 +262,14 @@ async def handle_message(client: Client, message: Message):
         elapsed_minutes, elapsed_seconds = divmod(elapsed_time.seconds, 60)
 
         status_text = (
-            f"┏ FileName🔆: {download.name}\n"
-            f"┠ [{'★' * int(progress / 10)}{'☆' * (10 - int(progress / 10))}] {progress:.2f}%\n"
+            f"┏ FileName: {download.name}\n"
+            f"┠ [{'🔆' * int(progress / 10)}{'━' * (10 - int(progress / 10))}] {progress:.2f}%\n"
             f"┠ Processed: {format_size(current)} ᴏғ {format_size(total)}\n"
-            f"┠ Status: 🍁: 🚀 Uploading to Telegram\n"
+            f"┠ Status:  Uploading to Telegram\n"
             f"┠ Engine: <b><u>PyroFork v2.2.11</u></b>\n"
-            f"┠ Speed🚀: {format_size(current / elapsed_time.seconds if elapsed_time.seconds > 0 else 0)}/s\n"
-            f"┠ Time Remaining🤞: {elapsed_minutes}m {elapsed_seconds}s\n"
-            f"┖ User: <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a> | ID: {user_id}\n"
+            f"┠ Speed: {format_size(current / elapsed_time.seconds if elapsed_time.seconds > 0 else 0)}/s\n"
+            f"┠ Elapsed: {elapsed_minutes}m {elapsed_seconds}s\n"
+            f"┖ User: <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a> | ɪᴅ: {user_id}\n"
         )
         await update_status(status_message, status_text)
 
@@ -445,7 +347,7 @@ async def handle_message(client: Client, message: Message):
                     part_caption = f"{caption}\n\nPart {i+1}/{len(split_files)}"
                     await update_status(
                         status_message,
-                        f"🚀 Uploading part {i+1}/{len(split_files)}\n"
+                        f"📤 Uploading part {i+1}/{len(split_files)}\n"
                         f"{os.path.basename(part)}"
                     )
                     
@@ -476,7 +378,7 @@ async def handle_message(client: Client, message: Message):
         else:
             await update_status(
                 status_message,
-                f"🚀 Uploading {download.name}\n"
+                f"📤 Uploading {download.name}\n"
                 f"Size: {format_size(file_size)}"
             )
             
