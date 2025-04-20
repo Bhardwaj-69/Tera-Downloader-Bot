@@ -126,9 +126,9 @@ async def start_command(client: Client, message: Message):
     await asyncio.sleep(3)
     await sticker_message.delete()
     user_mention = message.from_user.mention
-    join_button = InlineKeyboardButton("<b>💢⬍⬍JOIN⬍⬍🎃</b>", url="https://t.me/LarvaLinks")
-    developer_button = InlineKeyboardButton("🌟⬍DeveLope⬍⚡️", url="https://t.me/BhardwajBhavit")
-    repo69 = InlineKeyboardButton("<b>🍁<i>Free Anime⬍DataBase</i>😎</b>", url="https://t.me/+Y_QdbkhM2OFmNmZl")
+    join_button = InlineKeyboardButton("💢⬍⬍JOIN⬍⬍♻", url="https://t.me/LarvaLinks")
+    developer_button = InlineKeyboardButton("🌻⬍DeveLoper⬍🗿", url="https://t.me/BhardwajBhavit")
+    repo69 = InlineKeyboardButton("💥Free Anime⬍DataBase😎", url="https://t.me/+Y_QdbkhM2OFmNmZl")
     user_mention = message.from_user.mention
     reply_markup = InlineKeyboardMarkup([[join_button, developer_button], [repo69]])
     final_msg = f"<b><blockquote>🏴‍☠️Ahhoyy⬍! Pirate⬍.💀, {user_mention}.\n\n<i>⭕Aahha⬍!🎃 ⬍⬍TeraBox Downloader⬍⬍ Here⚓</i></blockquote>\n\n━⬍━⬍━⬍━⬍━⬍━⬍━⬍━⬍━⬍━⬍━⬍━⬍━\n\n🃏i am ⬍⬍Tottttllyy Freee⬍⬍.👻\n🔆Just Send TeraBox Link🌻⬍</b>."
@@ -176,7 +176,7 @@ async def handle_message(client: Client, message: Message):
         return
 
     encoded_url = urllib.parse.quote(url)
-    final_url = f"https://teradlrobot.cheemsbackup.workers.dev/?url={encoded_url}"
+    final_url = f"https://teradl-api.dapuntaratya.com/?url={encoded_url}"
 
     download = aria2.add_uris([final_url])
     status_message = await message.reply_text("<b>🌻Wait Pirate..!🎃\n\n🤞Sending your ⬍STUFFF⬍⚓</b>")
