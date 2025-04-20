@@ -1,7 +1,7 @@
 from aria2p import API as Aria2API, Client as Aria2Client
 import asyncio
 from dotenv import load_dotenv
-from datetime import datetime, timedelta
+from datetime import datetime
 import os
 import logging
 import math
@@ -9,15 +9,11 @@ from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.enums import ChatMemberStatus
 from pyrogram.errors import FloodWait
-from pymongo import MongoClient
 import time
-import uuid
 import urllib.parse
 from urllib.parse import urlparse
-import requests
 from flask import Flask, render_template
 from threading import Thread
-import os
 
 load_dotenv('config.env', override=True)
 logging.basicConfig(
@@ -78,28 +74,10 @@ if len(FSUB_ID) == 0:
 else:
     FSUB_ID = int(FSUB_ID)
 
-DATABASE_URL = os.environ.get('DATABASE_URL', '')
-if len(DATABASE_URL) == 0:
-    logging.error("DATABASE_URL variable is missing! Exiting now")
-    exit(1)
-
-SHORTENER_API = os.environ.get('SHORTENER_API', '')
-if len(SHORTENER_API) == 0:
-    logging.info("SHORTENER_API variable is missing!")
-    SHORTENER_API = None
-
-
 USER_SESSION_STRING = os.environ.get('USER_SESSION_STRING', '')
 if len(USER_SESSION_STRING) == 0:
     logging.info("USER_SESSION_STRING variable is missing! Bot will split Files in 2Gb...")
     USER_SESSION_STRING = None
-
-DATABASE_NAME = "terabox"
-COLLECTION_NAME = "user_requests"
-
-client = MongoClient(DATABASE_URL)
-db = client[DATABASE_NAME]
-collection = db[COLLECTION_NAME]
 
 app = Client("jetbot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
@@ -143,33 +121,33 @@ def format_size(size):
         return f"{size / (1024 * 1024 * 1024):.2f} GB"
 
 @app.on_message(filters.command("start"))
-async def start_command(client, message):
-    sticker_message = await message.reply_sticker("CAACAgUAAxkBAAKTlmfudEZKYYjP4l6XJZ5QRYWu00c3AAKwDwAC7osxVhzQOn1XTmwNHgQ")
-    await asyncio.sleep(2)
+async def start_command(client: Client, message: Message):
+    sticker_message = await message.reply_sticker("CAACAgIAAxkBAAITE2gEgSQGFH2gt4T7veWZPW_Tp2AWAALhFwACf3OYSmqCCdE1SB31HgQ")
+    await asyncio.sleep(3)
     await sticker_message.delete()
     user_mention = message.from_user.mention
-    reply_message = f"💢Ahhoyy! Pirate💀🏴‍☠️, {user_mention}.\n\n🍁TeraBox Video Downloader Here.\n\n🎃Send me TeraBox Video Link.🔆."
-    join_button = InlineKeyboardButton("💢JOIN♻", url="https://t.me/LarvaLinks")
-    developer_button = InlineKeyboardButton("🍁DeveLoper🍁", url="https://t.me/BhardwajBhavit")
-    reply_markup = InlineKeyboardMarkup([[join_button, developer_button]])
+    join_button = InlineKeyboardButton("<b>💢⬍⬍JOIN⬍⬍🎃</b>", url="https://t.me/LarvaLinks")
+    developer_button = InlineKeyboardButton("🌟⬍DeveLope⬍⚡️", url="https://t.me/BhardwajBhavit")
+    repo69 = InlineKeyboardButton("<b>🍁<i>Free Anime⬍DataBase</i>😎</b>", url="https://t.me/+Y_QdbkhM2OFmNmZl")
+    user_mention = message.from_user.mention
+    reply_markup = InlineKeyboardMarkup([[join_button, developer_button], [repo69]])
+    final_msg = f"<b><blockquote>🏴‍☠️Ahhoyy⬍! Pirate⬍.💀, {user_mention}.\n\n<i>⭕Aahha⬍!🎃 ⬍⬍TeraBox Downloader⬍⬍ Here⚓</i></blockquote>\n\n━⬍━⬍━⬍━⬍━⬍━⬍━⬍━⬍━⬍━⬍━⬍━⬍━\n\n🃏i am ⬍⬍Tottttllyy Freee⬍⬍.👻\n🔆Just Send TeraBox Link🌻⬍</b>."
     video_file_id = "/app/Jet-Mirror.mp4"
     if os.path.exists(video_file_id):
         await client.send_video(
             chat_id=message.chat.id,
             video=video_file_id,
-            caption=reply_message,
+            caption=final_msg,
             reply_markup=reply_markup
-        )
+            )
     else:
-        await message.reply_text(reply_message, reply_markup=reply_markup)
-
-
+        await message.reply_text(final_msg, reply_markup=reply_markup)
 
 async def update_status_message(status_message, text):
     try:
         await status_message.edit_text(text)
     except Exception as e:
-        logger.error(f"Failed to update status message: {e}")
+        logger.error(f"<i>Failed to update status message: {e}</i>")
 
 @app.on_message(filters.text)
 async def handle_message(client: Client, message: Message):
@@ -182,9 +160,9 @@ async def handle_message(client: Client, message: Message):
     is_member = await is_user_member(client, user_id)
 
     if not is_member:
-        join_button = InlineKeyboardButton("💢JOIN Now⭕", url="https://t.me/+0qXyse_1_GA3Mjc1")
+        join_button = InlineKeyboardButton("<i>♻<b>⬍Just JOIN⬍</b>🏝</i>", url="https://t.me/+0qXyse_1_GA3Mjc1")
         reply_markup = InlineKeyboardMarkup([[join_button]])
-        await message.reply_text("🌻Just Join the Channel♻\n\n🏝to Download Unlimited TeraBox Video\n\n ⚡FREE Without any Verification Shortnere💀", reply_markup=reply_markup)
+        await message.reply_text("<b><blockquote>💢Ahhoyy⬍! Pirate🎃\n\n<i>🏴‍☠️⬍Just Join⬍ Channel for Once!🤞</i></blockquote>\n\n❄Then Unlimited ⬍FREE⬍ Downloads👻</b>", reply_markup=reply_markup)
         return
     
     url = None
@@ -194,14 +172,14 @@ async def handle_message(client: Client, message: Message):
             break
 
     if not url:
-        await message.reply_text("Please provide a valid Terabox link.")
+        await message.reply_text("<b>Please provide a valid Terabox link.</b>")
         return
 
     encoded_url = urllib.parse.quote(url)
-    final_url = f"https://teradl-api.dapuntaratya.com/?url={encoded_url}"
+    final_url = f"https://teradlrobot.cheemsbackup.workers.dev/?url={encoded_url}"
 
     download = aria2.add_uris([final_url])
-    status_message = await message.reply_text("💢Wait Pirate\n♻Sending your Content🤞")
+    status_message = await message.reply_text("<b>🌻Wait Pirate..!🎃\n\n🤞Sending your ⬍STUFFF⬍⚓</b>")
 
     start_time = datetime.now()
 
@@ -214,14 +192,14 @@ async def handle_message(client: Client, message: Message):
         elapsed_minutes, elapsed_seconds = divmod(elapsed_time.seconds, 60)
 
         status_text = (
-            f"┏ FileName: {download.name}\n"
+            f"┏ ⬍FileName⬍: {download.name}\n"
             f"┠ [{'🔆' * int(progress / 10)}{'━' * (10 - int(progress / 10))}] {progress:.2f}%\n"
-            f"┠ ProceSsed: {format_size(download.completed_length)} ᴏғ {format_size(download.total_length)}\n"
-            f"┠ Status:  Downloading\n"
-            f"┠ Engine: <b><u>Aria2c v1.37.0</u></b>\n"
-            f"┠ Speed: {format_size(download.download_speed)}/s\n"
-            f"┠ Eta: {download.eta} | ᴇʟᴀᴘsᴇᴅ: {elapsed_minutes}m {elapsed_seconds}s\n"
-            f"┖ User: <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a> | ɪᴅ: {user_id}\n"
+            f"┠ ⬍Processed⬍: {format_size(download.completed_length)} ᴏғ {format_size(download.total_length)}\n"
+            f"┠ ⬍Statu⬍s:  Downloading\n"
+            f"┠ ⬍Engine⬍: <b><u>Aria2c v1.37.0</u></b>\n"
+            f"┠ ⬍Speeed⬍: {format_size(download.download_speed)}/s\n"
+            f"┠ ⬍ETA⬍: {download.eta} | ᴇʟᴀᴘsᴇᴅ: {elapsed_minutes}m {elapsed_seconds}s\n"
+            f"┖ ⬍User⬍: <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a> | ɪᴅ: {user_id}\n"
             )
         while True:
             try:
@@ -233,14 +211,14 @@ async def handle_message(client: Client, message: Message):
 
     file_path = download.files[0].path
     caption = (
-        f"🎃🏴‍☠️ {download.name}\n"
-        f"🍁♻ Leeched By : <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a>\n"
-        f"🏝⚡ UserLink: tg://user?id={user_id}\n\n"
-        "[Powered By LarvaLinks](https://t.me/LarvaLinks)"
+        f"⬍File🎃🏝⬍ {download.name}\n"
+        f"⬍By Leecher⬍ : <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a>\n"
+        f"⬍UserLink⬍: tg://user?id={user_id}\n\n"
+        "[PowerdBy <b> Click Kar ke dekh</b>](https://t.me/+d6pDCaZCyOI0ODk1)"
     )
 
     last_update_time = time.time()
-    UPDATE_INTERVAL = 5
+    UPDATE_INTERVAL = 15
 
     async def update_status(message, text):
         nonlocal last_update_time
@@ -262,14 +240,14 @@ async def handle_message(client: Client, message: Message):
         elapsed_minutes, elapsed_seconds = divmod(elapsed_time.seconds, 60)
 
         status_text = (
-            f"┏ FileName: {download.name}\n"
-            f"┠ [{'🔆' * int(progress / 10)}{'━' * (10 - int(progress / 10))}] {progress:.2f}%\n"
-            f"┠ Processed: {format_size(current)} ᴏғ {format_size(total)}\n"
-            f"┠ Status:  Uploading to Telegram\n"
-            f"┠ Engine: <b><u>PyroFork v2.2.11</u></b>\n"
-            f"┠ Speed: {format_size(current / elapsed_time.seconds if elapsed_time.seconds > 0 else 0)}/s\n"
-            f"┠ Elapsed: {elapsed_minutes}m {elapsed_seconds}s\n"
-            f"┖ User: <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a> | ɪᴅ: {user_id}\n"
+            f"┏ ⬍File Name⬍: {download.name}\n"
+            f"┠ [{'🚀' * int(progress / 10)}{'━' * (10 - int(progress / 10))}] {progress:.2f}%\n"
+            f"┠ ⬍ProceSsed⬍: {format_size(current)} ᴏғ {format_size(total)}\n"
+            f"┠ ⬍Status⬍:  Uploading to Telegram\n"
+            f"┠ ⬍Engine⬍: <b><u>PyroFork v2.2.11</u></b>\n"
+            f"┠ ⬍Speed⬍: {format_size(current / elapsed_time.seconds if elapsed_time.seconds > 0 else 0)}/s\n"
+            f"┠ ⬍Elapsed⬍: {elapsed_minutes}m {elapsed_seconds}s\n"
+            f"┖ ⬍User⬍: <a href='tg://user?id={user_id}'>{message.from_user.first_name}</a> | ɪᴅ: {user_id}\n"
         )
         await update_status(status_message, status_text)
 
@@ -347,7 +325,7 @@ async def handle_message(client: Client, message: Message):
                     part_caption = f"{caption}\n\nPart {i+1}/{len(split_files)}"
                     await update_status(
                         status_message,
-                        f"📤 Uploading part {i+1}/{len(split_files)}\n"
+                        f"⬍ Uploading part⬍ {i+1}/{len(split_files)}\n"
                         f"{os.path.basename(part)}"
                     )
                     
@@ -378,7 +356,7 @@ async def handle_message(client: Client, message: Message):
         else:
             await update_status(
                 status_message,
-                f"📤 Uploading {download.name}\n"
+                f"⬍Uploading⬍ {download.name}\n"
                 f"Size: {format_size(file_size)}"
             )
             
