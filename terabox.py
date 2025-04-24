@@ -160,7 +160,7 @@ async def handle_message(client: Client, message: Message):
     is_member = await is_user_member(client, user_id)
 
     if not is_member:
-        join_button = InlineKeyboardButton("<i>♻<b>⬍Just JOIN⬍</b>🏝</i>", url="https://t.me/+0qXyse_1_GA3Mjc1")
+        join_button = InlineKeyboardButton("<i>♻<b>⬍Just JOIN⬍</b>🏝</i>", url="https://t.me/+FAO46TcfMU81NjZl")
         reply_markup = InlineKeyboardMarkup([[join_button]])
         await message.reply_text("<b><blockquote>💢Ahhoyy⬍! Pirate🎃\n\n<i>🏴‍☠️⬍Just Join⬍ Channel for Once!🤞</i></blockquote>\n\n❄Then Unlimited ⬍FREE⬍ Downloads👻</b>", reply_markup=reply_markup)
         return
